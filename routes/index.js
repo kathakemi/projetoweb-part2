@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require('multer');
 const jwt = require("jsonwebtoken");
+const path = require("path");
 
 let mensagem = [];
 
@@ -159,22 +160,13 @@ router.post('/cadastrar').get(verifyJWT, (req, res) => {
 
 router.post('/pesquisa', (req, res) => {
     var query = req.body.pesq;
-    Postagem.find({texto: query }).then((postagens) => {
+    Postagem.find({texto: new RegExp(/(query)*/)}).then((postagens) => {
         res.render('pesquisar', {postagens: postagens})
     }).catch((err) => {
         console.log('As músicas não foram carregadas')
-        res.redirect('index')
+        res.render('home')
     }) 
 })
-
-let storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './public/imagens/')
-    },
-    filename: function (req, file, callback) {
-        callback(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-});
 
 router.get('/', (req, res) => {
     res.render('index');
@@ -184,33 +176,59 @@ router.get('/', (req, res) => {
     res.render('postagem', { user: req.cookies.userid });
   });
   
-  router.post('/postar', (req, res) => {
-    let upload = multer({
-        storage: storage,
-        fileFilter: function (req, file, callback) {
-            let ext = path.extname(file.originalname);
-            if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
-                return callback(mensagem.push('Por favor, coloque apenas imagens!'), null);                
-            }
-            const nomearquivo = file.originalname;
-            callback(null, true);
-        }
-    }).single('imagem');
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './public/uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(
+        null,
+        file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+      );
+    }
+});
+var upload = multer({ storage: storage });
 
-    upload(req, res, function (err) {
+router
+  .route('/postar')
+  .post(verifyJWTAdmin, upload.single("imagem"), (req, res) => {
+    console.log("BODY", req.body);
+    console.log("IMAGEM", req.file);
+    if (req.body) {
+      let mensagem = [];
+      if (
+        req.body.texto === "" ||
+        req.body.texto === null ||
+        req.body.texto === undefined
+      ) {
+        console.log("O campo titulo é obrigatório!");
+      }
+      if (
+        req.cookies.userid === "" ||
+        req.cookies.userid === null ||
+        req.cookies.userid === undefined
+      ) {
+        console.log("Author não informado!");
+      }
 
-        const novaPostagem = {
-            texto: req.body.texto,
-            author: req.cookies.userid
-        }
-        new Postagem(novaPostagem).save().then(function () {
-            res.render('home')
-            console.log('Sua música foi postada com sucesso!')
-        }).catch((err) => {
-            console.log('Ocorreu um erro durante a postagem!')
-        })
-    })
-})
+      if (mensagem.length > 0) {
+        res.render('postar', { mensagem });
+      } else {
+        console.log("FILE", req.file);
+        console.log("BODY", req.body);
+        let newPost = new Postagem({
+          texto: req.body.texto.trim(),
+          author: req.cookies.userid,
+          imagem: req.file !== undefined ? "/uploads/" + req.file.filename : null
+        });
+
+        newPost.save().then(user => {
+          res.render('home');
+          console.log('Musica salva com sucesso!')
+        });
+      }
+    }
+  });
 
 router.get('/login', (req, res) => {
     if (req.cookies.token) {
@@ -260,8 +278,7 @@ router.post('/login', (req, res) => {
     
                         res.cookie("admin", tokenAdmin);
                     }
-    
-                    res.status(200).render('home');
+                    res.status(200).render('home', {email: [{email: user.email}], usuario: [{usuario: user._id}], datanasc: [{datanasc: user.datanasc}], pais: [{pais: user.pais}]});
                 } 
                 else {
                     res.render('index', {
@@ -272,6 +289,5 @@ router.post('/login', (req, res) => {
         }
       }
   });
-
 
 module.exports = router

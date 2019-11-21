@@ -6,13 +6,12 @@ const postagem = new Schema({
         type: String,
         require: true
     },
-    imagem: {
-        type: String,
-        default: "Sem imagem"
-    },
     author: {
         type: String,
         require: true
+    },
+    imagem: {
+        type: String
     }
 })
 

@@ -65,7 +65,7 @@
             <div class="principal">
                 <h1>Postagem - Músicas</h1><br>
                 <form action="postar" method="post" enctype="multipart/form-data">
-                    <textarea type="text" rows="10" cols="50" name="texto" id="texto" placeholder="Qual música você quer postar?"></textarea> <br>
+                    <textarea type="text"  rows="10" cols="50" name="texto" id="texto" placeholder="Qual música você quer postar?"></textarea> <br>
                     <input type="file" name="imagem" accept="image/*">
                     <br><br>
                     <input type="submit" value="Postar">
@@ -77,10 +77,6 @@
                     {{this.texto}}
                 </div> <br />
             {{/each}} <br><br>
-
-            {{#each mensagempostagem as |erro|}}
-                <li>{{erro}}</li>
-            {{/each}}
 
             </div>
         </div>       

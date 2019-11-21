@@ -150,40 +150,50 @@
                         <h3 class="seccao-titulo">Perfil</h3>
                     </div>
                     <table class="seccao-profile">
+                         
                         <tbody>
+                            {{#each usuario}}
                             <tr class="nome-usuario">
                                 <td class="label">
                                     <label>Nome do usuário</label>
                                 </td>
                                 <td class="edit">
-                                    <p>kathakemi</p>
+                                   <p>{{usuario}}</p>
                                 </td>
                             </tr>
+                            {{/each}}
+                            {{#each email}}
                             <tr class="nome-usuario">
                                 <td class="label">
                                     <label>E-mail</label>
                                 </td>
                                 <td class="edit">
-                                    <p>mprbrasil@hotmail.com</p>
+                                    <p>{{email}}</p>
                                 </td>
                             </tr>
+                            {{/each}}
+                            {{#each datanasc}}
                             <tr class="nome-usuario">
                                 <td class="label">
                                     <label>Data de nascimento</label>
                                 </td>
                                 <td class="edit">
-                                    <p>25/06/1997</p>
+                                    <p>{{datanasc}}</p>
                                 </td>
                             </tr>
+                            {{/each}}
+                            {{#each pais}}
                             <tr class="nome-usuario">
                                 <td class="label">
                                     <label>País</label>
                                 </td>
                                 <td class="edit">
-                                    <p>BR</p>
+                                    <p>{{pais}}</p>
                                 </td>
                             </tr>
+                            {{/each}}
                         </tbody>
+                        
                     </table>
                     <div class="botao-editar">
                         <a href="index.html">Editar perfil</a>

@@ -3,7 +3,10 @@ const Schema = mongoose.Schema
 
 
 const usuario =  new Schema({
-
+    id:{
+        type: Object
+    },
+    
     nome: {
         type: String,
         require: true
