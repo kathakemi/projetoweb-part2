@@ -73,7 +73,7 @@ router.route('/pesquisa').get(verifyJWT, (req, res) => {
 //realizando operações no bd
 
 
-router.post('/cadastrar').get(verifyJWT, (req, res) => {
+router.post('/cadastrar').get( (req, res) => {
     var erros = []
 
     if(!req.body.login || typeof req.body.login == undefined || req.body.login == null){
