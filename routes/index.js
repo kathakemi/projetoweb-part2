@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const multer = require('multer');
 const jwt = require("jsonwebtoken");
 const path = require("path");
+const bcrypt = require("bcryptjs")
 
 let mensagem = [];
 
@@ -73,12 +74,9 @@ router.route('/pesquisa').get(verifyJWT, (req, res) => {
 //realizando operações no bd
 
 
-router.post('/cadastrar').get( (req, res) => {
+router.post('/cadastrar', (req, res) => {
     var erros = []
 
-    if(!req.body.login || typeof req.body.login == undefined || req.body.login == null){
-        erros.push({texto: "Dado inválido"})
-    }
     if(!req.body.email || typeof req.body.email == undefined || req.body.email == null){
         erros.push({texto: "Dado inválido"})
     }
@@ -112,7 +110,7 @@ router.post('/cadastrar').get( (req, res) => {
 
     if(erros.length > 0){
         res.render('cadastro')
-        console.login('Dados inválidos')
+        console.log('Dados inválidos')
     }
     else{
 
@@ -140,19 +138,18 @@ router.post('/cadastrar').get( (req, res) => {
                         if(erro){
                             res.render('index')
                         }
-                        novoCadastro.save().then(() =>{
-                            req.flash("sucesso_msg", "Usuário válido")
-                            res.redirect('index')
+                        new Usuario(novoCadastro).save().then(() =>{
+                               res.redirect('/')
                             }).catch((err) =>{
-                                req.flash("erro_msg", "erro")
+                              console.log("Erro durante o cadastro!", err)
                             })      
                     })
                 })
             
-                new Usuario(novoCadastro).save().then(function () {
+                //new Usuario(novoCadastro).save().then(function () {
                     //res.flash("sucesso_msg", "Sucesso!"),
-                    console.log("Usuario cadastrado com sucesso!")
-                })
+                    //console.log("Usuario cadastrado com sucesso!")
+                //})
             }
         })        
     }
@@ -160,8 +157,8 @@ router.post('/cadastrar').get( (req, res) => {
 
 router.post('/pesquisa', (req, res) => {
     var query = req.body.pesq;
-    Postagem.find({texto: new RegExp(/(query)*/)}).then((postagens) => {
-        res.render('pesquisar', {postagens: postagens})
+    Postagem.find({texto: new RegExp(/(query)*/)}).then((items) => {
+        res.render('pesquisar', {items: items})
     }).catch((err) => {
         console.log('As músicas não foram carregadas')
         res.render('home')

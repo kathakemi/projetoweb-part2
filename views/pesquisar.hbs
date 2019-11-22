@@ -9,6 +9,13 @@
                 color: white;
             }
 
+            .item-img{
+                height: auto;
+                max-width: 27%;
+                vertical-align: middle;
+                bottom: 0;
+            }
+
         </style>
 
         <link rel="stylesheet" type="text/css" href="spotify.css" />
@@ -69,16 +76,20 @@
                     <input type="submit" value="Pesquisar">
                 </form><br><br>
 
-                {{#each postagens}}
-                <div class="conteudo">                   
-                    <p> 
-                         {{this.texto}}
-                        {{else}}
-                        Nenhum música. 
-                    </p>
-                </div> 
-                {{/each}}
+               
 
+                    
+                {{#each items as |item|}}
+                    <div class="conteudo"> 
+                        <h2>{{item.texto}}</h2>
+                        <h3>Autor: {{item.author}}</h3>
+                        <img class="item-img" src={{item.imagem}}>
+
+                        {{else}}
+                        Nenhuma música. 
+                    </div>
+                {{/each}}
+            
                 <br><br>
 
                 {{#each mensagempesquisa as |erro|}}
