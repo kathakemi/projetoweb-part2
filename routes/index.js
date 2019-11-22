@@ -155,13 +155,16 @@ router.post('/cadastrar', (req, res) => {
     }
 })
 
+
+//new RegExp(/(query)*/
+
 router.post('/pesquisa', (req, res) => {
     var query = req.body.pesq;
-    Postagem.find({texto: new RegExp(/(query)*/)}).then((items) => {
+    Postagem.find({texto: new RegExp(query)}).then((items) => {
         res.render('pesquisar', {items: items})
     }).catch((err) => {
         console.log('As músicas não foram carregadas')
-        res.render('home')
+        res.render('home',  {email: [{email: user.email}], usuario: [{usuario: user._id}], datanasc: [{datanasc: user.datanasc}], pais: [{pais: user.pais}]})
     }) 
 })
 
@@ -220,7 +223,7 @@ router
         });
 
         newPost.save().then(user => {
-          res.render('home');
+          res.render('home',  {email: [{email: user.email}], usuario: [{usuario: user._id}], datanasc: [{datanasc: user.datanasc}], pais: [{pais: user.pais}]});
           console.log('Musica salva com sucesso!')
         });
       }

@@ -16,6 +16,10 @@
                 bottom: 0;
             }
 
+            .conteudo{
+                 height: auto;
+            }
+
         </style>
 
         <link rel="stylesheet" type="text/css" href="spotify.css" />
@@ -80,7 +84,7 @@
 
                     
                 {{#each items as |item|}}
-                    <div class="conteudo"> 
+                    <div class="post"> 
                         <h2>{{item.texto}}</h2>
                         <h3>Autor: {{item.author}}</h3>
                         <img class="item-img" src={{item.imagem}}>
