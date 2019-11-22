@@ -8,6 +8,7 @@ multer = require('multer');
 const db = require('./config/db')
 const cookieParser = require('cookie-parser');
 const http = require("http");
+const porta = process.env.PORT || 3000;
 
 app.use(cookieParser());
 
@@ -30,4 +31,4 @@ mongoose.connect(db.mongoURI, {
 
 app.use("/", index);
 
-http.createServer(app).listen(3000);
+http.createServer(app).listen(porta);
