@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+    <head>       
+        <style type="text/css">
+            
+            .principal{
+                padding-top: 40px;      
+                padding-left: 80px;          
+                color: white;
+            }
+
+            .item-img{
+                height: auto;
+                max-width: 27%;
+                vertical-align: middle;
+                bottom: 0;
+            }
+
+            .conteudo{
+                 height: auto;
+            }
+
+        </style>
+
+        <link rel="stylesheet" type="text/css" href="spotify.css" />
+    </head>   
+    <body>
+        <header>         
+
+            <div class="container">
+                <div class="logo">                    
+                    <img src="logo.png" alt="Spotify">
+                </div>
+                <ul class="navbar">
+                    <li class="navitem item1"><a>Premium</a></li>
+                    <li class="navitem item2"><a>Ajuda</a></li>
+                    <li class="navitem item3"><a>Baixar</a></li>
+                    <li class="navitem item4"><a href="sair">Sair</a></li>
+                </ul>
+                <button class="navbar-toggle" type="button" data-toggle="sidepanel">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="nav">
+                        <li class="dropdown">
+                            <a>
+                                <img class="perfil-img" src="perfil.jpg">
+                            </a>
+                        </li>
+                    </div>                                 
+            </div>
+        </header>
+        <div class="background">
+            <div class="banner">
+                <div class="conteudo">
+                    <div class="row">
+                            <div class="texto">
+                                <h2 class="titulo">Olá!</h2>
+                                <p>                            
+                                    Quer editar seu perfil? Encontrar uma playlist antiga? 
+                                    Descansar um pouco do trabalho? Você pode fazer tudo isso aqui.                    
+                                </p>
+                            </div>
+            
+                            <div class="imagem">
+                                <img src="iphone.png" alt="Iphone">
+                            </div>                            
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="principal">
+                <h1>Pesquisa - Músicas</h1><br>
+                <form action="pesquisa" method="POST">
+                    <input type="text" id="pesq" name="pesq" maxlength="200" size="80%" placeholder="Digite aqui o que procura" height="250px"></input>
+                    <input type="submit" value="Pesquisar">
+                </form><br><br>
+
+               
+
+                    
+                        Nenhuma música. 
+                    </div>
+            
+                <br><br>
+
+
+            </div>
+        </div>       
+
+    </body>
+</html>
