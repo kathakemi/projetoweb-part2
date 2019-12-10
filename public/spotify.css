@@ -4,6 +4,33 @@
     border: 0;
 }
 
+.search{
+    line-height: 71px;
+    margin-top: 5px;
+    width: 40px;
+    float: right;
+    margin-right: 13px;
+}
+
+.search img {
+    max-width: 28px;
+    height: auto;
+}
+
+.loading {
+    position: absolute;
+    background: rgba(153, 153, 153, 0.466);
+    height: 100%;
+    width: 100%;
+    z-index: 1001;
+    display: none;
+    align-items: center;
+  }
+  
+  .loading > img {
+    margin: 0 auto;
+    }
+
 body{
     margin: 0px;
     padding: 0px;
@@ -106,7 +133,6 @@ ul, li, ol{
 }
 
 .principal{
-    height: 600px;
     width: 1170px;
     margin:auto;
 }

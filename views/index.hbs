@@ -9,9 +9,23 @@
                 color: white;
             }
 
+            .a:visited, a:link, a:active{
+                color: #FFF;
+                fill:#FFF;
+                text-decoration: none;
+            }
+
+            .item-img{
+                height: auto;
+                max-width: 27%;
+                vertical-align: middle;
+                bottom: 0;
+            }
+
         </style>
 
         <link rel="stylesheet" type="text/css" href="spotify.css" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     </head>   
     <body>
         <header>         
@@ -76,8 +90,107 @@
                             {{/each}}
                         </ul>
                     </form>
+
+                    <!-- <form method="POST" action="/publica"> -->
+						<input type="text" name="titulo_publica" id="titulo_publica" value="" />
+						<input type="submit" class="blueGradientButton" id="publica" value="PUBLICAR" />
+					<!-- </form> -->
+
+                    
+                    <!-- <form action="/pesquisa" method="POST"> -->
+						<div class = "searchButton">
+							<!-- <input type="image" src="./imgs/ic_search_white_36dp.png" id="image_search" /> -->
+							<!-- <img src="./imgs/ic_search_white_36dp.png" alt="Lupa de pesquisa"></img> -->
+						</div>
+						<div class = "searchBar">
+							<input type="text" name="search" id="search" value="">
+						</div>
+					<!-- </form> -->
+                    <br><br>
+                    
+                <div id="musicas">
+                {{#each musicas as |item|}}
+                    <div class="post"> 
+                        <h2>{{item.texto}}</h2>
+                        <h3>Autor: {{item.author}}</h3>
+                        <img class="item-img" src={{item.imagem}}>
+                    </div>
+                {{/each}}
+                </div>
+
+                <br><br>             
+              
             </div>
-        </div>       
+        </div>   
+
+
+       <script type="text/javascript" charset="utf-8">
+
+                var titulo_publica = document.querySelector("#titulo_publica");
+			    var publica = document.querySelector("#publica");
+			    var musicas = document.querySelector("#musicas");
+			    var search = document.querySelector("#search");
+
+			    var carregando = '<center><img src="/loading.svg" /></center>';
+
+			    function JSONtoHTML_musicas(json_musicas)
+			    {
+				    var html_musicas = "";
+				    for (var i in json_musicas) {
+				    html_musicas += '<div class="post"> \
+                                    <h2>' + json_musicas[i].texto + '</h2> \
+                                    <h3>Autor:' + json_musicas[i].author + '</h3>\
+                                    <img class="item-img" scr="./lua.jpg">\
+                                </div>';
+				    }
+				    return html_musicas;
+			    }
+
+			    publica.addEventListener("click", function(){
+				    musicas.innerHTML = carregando;
+				    var xmlhttp = new XMLHttpRequest();
+				    xmlhttp.open("POST", "publica", true);
+				    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				    xmlhttp.onreadystatechange = function() {
+					    if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+					    {	
+						    musicas.innerHTML = JSONtoHTML_musicas(JSON.parse(xmlhttp.responseText));
+						    search.value = "";
+					    }
+				    };
+				    xmlhttp.send("titulo_publica=" + titulo_publica.value);
+			    });
+			
+			    setInterval(function(){
+				    if (search.value == "")
+				    {
+					    musicas.innerHTML = carregando;
+					    var xmlhttp = new XMLHttpRequest();
+					    xmlhttp.open("GET", "musicas", true);
+					    xmlhttp.onreadystatechange = function() {
+						    if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+						    {	
+							    musicas.innerHTML = JSONtoHTML_musicas(JSON.parse(xmlhttp.responseText));
+						    }
+					    };
+					xmlhttp.send();
+				    }   
+			    }, 10000);
+
+			    search.addEventListener("keyup", function live_search() {
+				    musicas.innerHTML = carregando;
+				    var xmlhttp = new XMLHttpRequest();
+				    xmlhttp.open("POST", "pesquisa", true);
+				    xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				    xmlhttp.onreadystatechange = function() {
+					    if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+					    {	
+						    musicas.innerHTML = JSONtoHTML_musicas(JSON.parse(xmlhttp.responseText));
+					    }
+				    };
+				    xmlhttp.send("search=" + search.value);
+			    });
+              </script>
 
     </body>
 </html>
