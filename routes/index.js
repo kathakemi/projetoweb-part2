@@ -163,7 +163,7 @@ router.post('/cadastrar', (req, res) => {
 
 //new RegExp(/(query)*/
 
-/*router.post('/pesquisa', (req, res) => {
+router.post('/pesquisa', (req, res) => {
     var query = req.query.pesq;
     Postagem.find({texto: new RegExp(query)}).then((items) => {
         res.render('pesquisar', {items: items})
@@ -171,7 +171,7 @@ router.post('/cadastrar', (req, res) => {
         console.log('As músicas não foram carregadas')
         res.render('home',  {email: [{email: user.email}], usuario: [{usuario: user._id}], datanasc: [{datanasc: user.datanasc}], pais: [{pais: user.pais}]})
     }) 
-})*/
+})
 
 /*router.get('/', (req, res) => {    
     res.redirect('pesquisar');
@@ -294,41 +294,5 @@ router.post('/login', (req, res) => {
         }
       }
   });
-
-
-//Projeto 3
-
-router.post('/pesquisa', (req, res) => {
-  console.log('Pesquisa');
-  Postagem.find({texto: new RegExp(req.body.search)}).then((items) => {
-      res.end(JSON.stringify(items));
-    }).catch((err) => {
-      console.log('As músicas não foram carregadas')
-    }) 
-
-});
-
-router.post('/publica', (req, res) => {
-  let newPost = new Postagem({
-    texto: req.body.titulo_publica.trim(),
-    author: '1256478979',
-    imagem: '/uploads/imagem-1574458245083.jpg'
-    });
-
-    newPost.save().then(user => {    
-      console.log('Musica salva com sucesso!')
-      res.end(JSON.stringify(user));
-    });  
-});
-
-router.get('/musicas', (req, res) => {
-  console.log('Musicas');
-  Postagem.find({texto: new RegExp(req.body.search)}).then((items) => {
-    res.end(JSON.stringify(items));
-  }).catch((err) => {
-    console.log('As músicas não foram carregadas')
-  }) 
-
-});
 
 module.exports = router

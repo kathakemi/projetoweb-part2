@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>       
@@ -7,7 +8,6 @@
                 padding-top: 40px;      
                 padding-left: 80px;          
                 color: white;
-                height: auto;
             }
 
             .item-img{
@@ -26,9 +26,6 @@
         <link rel="stylesheet" type="text/css" href="spotify.css" />
     </head>   
     <body>
-        <div class="loading">
-            <img src="/loading.svg" alt="">
-        </div>
         <header>         
 
             <div class="container">
@@ -79,18 +76,22 @@
 
             <div class="principal">
                 <h1>Pesquisa - Músicas</h1><br>
-                <!-- <form action="/pesquisa" method="POST"> -->
-						<div class = "searchButton">
-							<!-- <input type="image" src="./imgs/ic_search_white_36dp.png" id="image_search" /> -->
-							<!-- <img src="./imgs/ic_search_white_36dp.png" alt="Lupa de pesquisa"></img> -->
-						</div>
-						<div class = "searchBar">
-							<input type="text" name="search" id="search" value="">
-						</div>
-					<!-- </form> --><br><br>              
+                <form action="pesquisa" method="POST">
+                    <input type="text" id="pesq" name="pesq" maxlength="200" size="80%" placeholder="Digite aqui o que procura" height="250px"></input>
+                    <input type="submit" value="Pesquisar">
+                </form><br><br>
+
+               
+
+                    
+                        Nenhuma música. 
+                    </div>
+            
+                <br><br>
+
 
             </div>
         </div>       
-       
+
     </body>
 </html>
