@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+    <head>       
+        <style type="text/css">
+            
+            .principal{
+                padding-top: 40px;      
+                padding-left: 80px;          
+                color: white;
+            }
+
+        </style>
+
+        <link rel="stylesheet" type="text/css" href="spotify.css" />
+    </head>   
+    <body>
+        <header>         
+
+            <div class="container">
+                <div class="logo">                    
+                    <img src="logo.png" alt="Spotify">
+                </div>
+                <ul class="navbar">
+                    <li class="navitem item1"><a>Premium</a></li>
+                    <li class="navitem item2"><a>Ajuda</a></li>
+                    <li class="navitem item3"><a>Baixar</a></li>
+                    <li class="navitem item4"><a  href="cadastro">Cadastrar</a></li>
+                </ul>
+                <button class="navbar-toggle" type="button" data-toggle="sidepanel">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="nav">
+                        <li class="dropdown">
+                            <a>
+                                <img class="perfil-img" src="perfil.jpg">
+                            </a>
+                        </li>
+                    </div>                                 
+            </div>
+        </header>
+        <div class="background">
+            <div class="banner">
+                <div class="conteudo">
+                    <div class="row">
+                            <div class="texto">
+                                <h2 class="titulo">Olá!</h2>
+                                <p>                            
+                                    Quer editar seu perfil? Encontrar uma playlist antiga? 
+                                    Descansar um pouco do trabalho? Você pode fazer tudo isso aqui.                    
+                                </p>
+                            </div>
+            
+                            <div class="imagem">
+                                <img src="iphone.png" alt="Iphone">
+                            </div>                            
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <div class="principal">
+                <h1>Login</h1><br>
+                    <form action="/login" method="post">                    
+                        <label for="login"> Email: </label>
+                        <input type="text" id="login "name="login" maxlength="30" value=""></input> <br><br>
+                        <label for="senha"> Senha: </label>
+                        <input type="password" id="senha" name="senha" maxlength="8" value=""></input><br><br>
+                        <input type="submit" value="Entrar"><br><br>
+                        <ul>
+                        </ul>
+                    </form>
+            </div>
+        </div>       
+
+    </body>
+</html>
