@@ -81,11 +81,17 @@
                     <input type="submit" value="Pesquisar">
                 </form><br><br>
 
-               
-
-                    
-                        Nenhuma música. 
+                {{#each items as |item|}}
+                    <div class="post"> 
+                        <h2>{{item.texto}}</h2>
+                        <h3>Autor: {{item.author}}</h3>
+                        <img class="item-img" src={{item.imagem}}>
                     </div>
+
+                    {{else}}
+                        Nenhuma música.   
+                {{/each}}   
+            </div>
             
                 <br><br>
 
